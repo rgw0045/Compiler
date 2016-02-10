@@ -1,4 +1,4 @@
-//Ricardo Wiggins ADT
+//Ricardo Wiggins & Anthony Adewole ADT
 
 #include <iostream>
 #include <string>
@@ -19,6 +19,7 @@ class Symbol{
 class SymbolTable{
   private:
     list<Symbol> Table;
+    list<Symbol>::iterator itr;
   public:
     SymbolTable(string record, string key);
 };
@@ -45,12 +46,12 @@ ADT::Leave_current_scope(){
   Scope.pop();
 }
 
-ADT::Record_Search(string key){
-  while(scope.iterator->next != NULL){
-    if (Scope.iterator.key = key)
+ADT::Record_Search(string S_key){
+  for(iterator itr = Scope.begin(), iterator end = Scope.end(); itr != end; iterator++){
+    if (iterator.key = S_key){
       return true;
+    }
   }
-
   return false;
 }
 

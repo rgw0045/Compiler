@@ -1,20 +1,30 @@
+%option noyywrap
+
 %{
-#include <iostream>
-using namespace std;
-#define YY_DECL extern "C" int yylex()
+  #include "gram.tab.h"
+  #include <cstdio>
 %}
+
+name		[a-zA-Z0-9]+
+int		[0-9]+
+char		[a-z]+
+char		[A-Z]+
+whitespace 	[ \r\t\w\f]
+linefeed 	\n
+
 %%
-[ \t\n]			;
-[0-9]+			{cout << "Found an Integer: " << yytext << "\n" << endl; }
-[a-z]+			{cout << "Found a char: " << yytext << "\n" << endl; }
-[A-Z]+			{cout << "Found a char: " << yytext << "\n" << endl; }
-[a-zA-Z0-9]+		{cout << "Found a string: " << yytext << "\n" << endl;}
-"("			{return (LPAREN);	}
-")"			{return (RPAREMN);	}
-"}" 			{return (RCURLY);	}
-"{"			{return (LCURLY);	}
-"["                     {return (LBRACKET);     }
-"]"                     {return (RBRACKET);     }
+
+{name}		{ return NAME; }
+{int}		{ return INT; }
+{char}		{ return CHAR; }
+":"		{ return COLON; }
+"->"		{ return RIGHT_ARROW; }
+"}"		{ return RIGHT_BRACE; }
+"{"		{ return LEFT_BRACE; }
+"("		{ return LEFT_PARENTHESIS; }
+")"		{ return RIGHT_PARENTHESIS; }
+"["		{ return LEFT_BRACKET; }
+"]"		{ return RIGHT_BRACKET; }
 "&"                                     { return ('&');         }
 "="                                     { return ('=');         }
 ";"                                     { return (';');         }
@@ -26,8 +36,7 @@ using namespace std;
 "!"                                     { return ('!');         }
 ">"                                     { return ('>');         }
 "<"                                     { return ('<');         }
+{whitespace}	
+{linefeed} 	++yylineno;
+
 %%
-int main (int, char**) {
-  //lex through the input
-  yylex();
-}

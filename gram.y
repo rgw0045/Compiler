@@ -1,53 +1,26 @@
 %{
-#include <cstdio>
-#include <iostream>
-using namespace std;
-
-extern "C" int yylex();
-extern "C" int yyparse();
-extern "C" FILE *yyin;
-
-void yyerror(const char *s);
+  #include <math.h>
+  #include <stdio.h>
+  #include <stdlib.h>
+  int yylex (void);
+  void yyerror (char const *S);
 %}
 
-%union {
-  int ival;
-  float fval
-  char *sval;
+%union { /* Define stack type */
+        int intstuff;
 }
 
-%token <ival> INT
-%token <fval> FLOAT
-%token <sval> STRING
 
-%%
+%token NAME
+%token INT
+%token CHAR
+%token COLON
+%token RIGHT_ARROW
+%token RIGHT_BRACE
+%token LEFT_BRACE
+%token LEFT_PARENTHESIS
+%token RIGHT_PARENTHESIS
+%token LEFT_BRACKET
+%token RIGHT_BRACKET
 
-grammar:
-  INT grammar       {cout << "bison found an int: " << $1 << endl;
-  |  FLOAT grammar  {cout << "bison found a float: " << $1 << endl;
-  |  STRING grammar {cout << "bison found a string:  "<< $1 << endl;
-  |  INT            {cout << "bison found an int: " << $1 << endl;
-  |  FLOAT          {cout << "bison found an float: " << $1 << endl;
-  |  STRING         {cout << "bison found an string: " << $1 << endl;
-  ;
-%%   
-
-int main(int, char**) {
-  FILE *myfile = fopen("a.lex.l", "r");
-
-  if(!myfile) {
-    cout << "Can't open file" << endl;
-    return -1;
-  }
-  yyin = myfile;
-
-  do {
-        yyparse();
-  }  while (!feof(yyin));
-
-} 
-
-void yyerror(const char *p) {
-  cout << "Parsing error: << a << endl;
-  exit(-1);
-}
+%start program

@@ -57,7 +57,11 @@ ADT::Record_Search(string S_key){
 
 ADT::Insert(string record, string key){
   if(Record_Search(string key) == false){
-    
+    while(iterator itr != Scope.end())
+	itr++;
+    itr.key = key;
+    itr.record = record;
   }
+  itr = Scope.begin();
 }
 
